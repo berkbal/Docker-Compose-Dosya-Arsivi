@@ -1,16 +1,6 @@
 # Docker-Compose Dosya Arşivi
 
-Bu repo, Docker Compose kullanılarak hızlıca ayağa kaldırılabilecek hazır servis yapılarını içerir. Her `docker-compose.yml` dosyası açıklamalarla birlikte sunulmuştur, böylece hem yeni başlayanlar hem de ileri düzey kullanıcılar kolayca anlayabilir ve kendi ihtiyaçlarına göre özelleştirebilir.
-
-## İçerik
-
-Bu repoda farklı kullanım senaryolarına uygun birden fazla `docker-compose.yml` dosyası bulunmaktadır. Her biri belirli bir amaca hizmet eder. Dosyalar genellikle şu yapıyı içerir:
-
-- Gerekli servis tanımları (örneğin: `web`, `db`, `redis`)
-- Ağ ve hacim tanımları
-- Ortam değişkenleri
-- Sağlık kontrolleri
-- Açıklayıcı yorum satırları
+Bu repo, Docker Compose kullanılarak hızlıca ayağa kaldırılabilecek hazır servis yapılarını içerir.
 
 ## Gereksinimler
 
