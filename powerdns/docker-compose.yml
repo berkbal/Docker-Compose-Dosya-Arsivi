@@ -1,0 +1,61 @@
+version: '2.2'
+
+services:
+  powerdns:
+    image: pschiffe/pdns-pgsql:4.9
+    container_name: powerdns
+    environment:
+      - PDNS_gpgsql_host=${PDNS_gpgsql_host}
+      - PDNS_gpgsql_port=${PDNS_gpgsql_port}
+      - PDNS_gpgsql_user=${PDNS_gpgsql_user}
+      - PDNS_gpgsql_password=${PDNS_gpgsql_password}
+      - PDNS_gpgsql_dbname=${PDNS_gpgsql_dbname}
+      - PDNS_api=${PDNS_api}
+      - PDNS_api_key=${PDNS_api_key}
+      - PDNS_default_ttl=${PDNS_default_ttl}
+      - PDNS_webserver_address=${PDNS_webserver_address}
+      - PDNS_webserver_allow_from=${PDNS_webserver_allow_from} #Prod'da daraltilmasi gerekebilir
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8081:8081"
+    networks:
+      - powerdns_network
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:17.6
+    container_name: db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db-init/db-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - powerdns_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pdns -d pdns"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  powerdns-admin:
+    image: ngoduykhanh/powerdns-admin:v0.3.0
+    container_name: powerdns-admin
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    ports:
+      - "9191:80"
+    networks:
+      - powerdns_network
+    depends_on:
+      - powerdns
+
+networks:
+  powerdns_network:
+    driver: bridge
