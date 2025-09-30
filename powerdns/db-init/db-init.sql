@@ -96,3 +96,5 @@ CREATE TABLE tsigkeys (
 );
 
 CREATE UNIQUE INDEX namealgoindex ON tsigkeys(name, algorithm);
+
+CREATE DATABASE pdns_admin;

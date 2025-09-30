@@ -49,6 +49,9 @@ services:
     container_name: powerdns-admin
     environment:
       - SECRET_KEY=${SECRET_KEY}
+      - SQLALCHEMY_DATABASE_URI=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/pdns_admin
+      # Migration için gerekli olabilir:
+      # - FLASK_APP=powerdnsadmin/__init__.py
     ports:
       - "9191:80"
     networks:
