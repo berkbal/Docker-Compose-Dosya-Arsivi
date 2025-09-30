@@ -12,9 +12,9 @@ Bu repo, PowerDNS ve PowerDNS-Admin'i Docker Compose ile hızlıca ayağa kaldı
     docker-compose up -d
     ```
 
+## PowerDNS-Admin Kurulumu
 
-
-
+PowerDNS-Admin arayüzüne ilk kez girdiğinizde, sizden bir PowerDNS sunucusu eklemenizi isteyecektir. Ayarları yaparken API Endpoint olarak `http://powerdns:8081` adresini ve API Key olarak `.env` dosyanızdaki `PDNS_api_key` değerini kullanabilirsiniz. Container'lar aynı ağda olduğu için IP adresi yerine container adını (`powerdns`) kullanabilirsiniz.
 
 ## Servisler
 
